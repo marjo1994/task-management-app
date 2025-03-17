@@ -1,34 +1,33 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import { Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, useMediaQuery} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
-function createData(title, state, desc) {
-  return { title, state, desc };
-}
-
-const rows = [
-  createData('Task1', 'To do', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
-  createData('Task2', 'In progress', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
-  createData('Task3', 'In progress', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
-  createData('Task4', 'To do', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
-  createData('Task5', 'Completed', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
-];
+import AddTaskModal from '../components/AddTaskModal';
+import { TaskContext } from '../context/TaskContext';
 
 const TaskList = () => {
-  const isSmallScreen = useMediaQuery('(max-width:600px)'); // Detecta pantallas pequeñas
+  const { tasks, addTask, removeTask } = useContext(TaskContext); 
+  const [modalOpen, setModalOpen] = useState(false);
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
 
+  const handleAddTask = (newTask) => {
+    addTask(newTask); 
+  };
+  const handleDelete = (taskId) => {
+    removeTask(taskId);
+  };
+ 
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <h1>Task List</h1>
-        <Button variant="contained">Add Task</Button>
+        <Button variant="contained" onClick={() => setModalOpen(true)}>Add Task</Button>
       </Box>
 
+      <AddTaskModal open={modalOpen} onClose={() => setModalOpen(false)} onAddTask={handleAddTask} />
       {isSmallScreen ? (
-        // Mostrar como lista en pantallas pequeñas
         <div>
-          {rows.map((row) => (
+          {tasks.map((row) => (
             <Paper key={row.title} sx={{ p: 2, mb: 2 }}>
               <div><strong>Title:</strong> {row.title}</div>
               <div><strong>State:</strong> {row.state}</div>
@@ -37,7 +36,6 @@ const TaskList = () => {
           ))}
         </div>
       ) : (
-        // Mostrar como tabla en pantallas grandes
         <div style={{ overflowX: 'auto' }}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -50,7 +48,7 @@ const TaskList = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {tasks.map((row) => (
                   <TableRow
                     key={row.title}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -62,7 +60,7 @@ const TaskList = () => {
                       <IconButton aria-label="edit">
                         <EditIcon />
                       </IconButton>
-                      <IconButton aria-label="delete">
+                      <IconButton aria-label="delete"  onClick={() => handleDelete(row.id)}>
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>
