@@ -25,7 +25,7 @@ export const createTask = async (taskData) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    return data;
+    return data.task;
   } catch (error) {
     console.error('Error creating task:', error.message);
     throw error;
