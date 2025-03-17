@@ -16,7 +16,7 @@ Obtiene una lista de todas las tareas almacenadas.
 
 - **URL**: `/getTasks`
 - **Método**: `GET`
-- **Respuesta exitosa**:
+- **Respuestas**:
   - **Código**: `200 OK`
   - **Ejemplo de respuesta**:
     ```json
@@ -37,7 +37,13 @@ Obtiene una lista de todas las tareas almacenadas.
       }
     ]
     ```
-
+  - **Código**: `500 Internal Server Error (Error en el servidor)`
+  - **Ejemplo de respuesta**: 
+    ```json
+    {
+      "error": "<mensaje de error>"
+    }
+    ```  
 ---
 
 ### 2. Crear una nueva tarea (POST)
@@ -67,6 +73,27 @@ Crea una nueva tarea con un título, descripción y estado.
         }
     }
     ```
+  - **Código**: `400 Bad Request (Campos faltantes o inválidos)`
+  - **Ejemplo de respuesta**(campos faltantes):
+    ```json
+    {
+      "error": "Missing required fields: title, state, desc"
+    }
+    ```
+  - **Ejemplo de respuesta**(tipo de dato inválido):
+    ```json
+    {
+      "error": "Title and description should be strings."
+    }
+    ```
+  - **Código**: `500 Internal Server Error (Error en el servidor)`
+  - **Ejemplo de respuesta**(tipo de dato inválido):
+    ```json
+    {
+      "error": "<mensaje de error>"
+    }
+    ```
+---
 
 ### 3. Actualizar una nueva tarea (PUT)
   Actualiza el estado de una tarea existente.
@@ -80,8 +107,8 @@ Crea una nueva tarea con un título, descripción y estado.
   {
     "state": "In progress"
   }
-- **Respuesta exitosa**:
-  - **Código**: `200 OK`
+- **Respuestas**:
+  - **Código**: `200 OK (Actualización exitosa)`
   - **Ejemplo de respuesta**:
     ```json
     {
@@ -94,6 +121,34 @@ Crea una nueva tarea con un título, descripción y estado.
         }
     }
     ```
+  - **Código**: `400 Bad Request (Solicitud incorrecta)`
+  - **Ejemplo de respuesta**(cuerpo de la solicitud faltante): 
+    ```json
+    {
+      "error": "No body found in the request"
+    }
+    ```
+  - **Ejemplo de respuesta** (formato JSON inválido): 
+    ```json
+    {
+      "error": "Invalid JSON format in request body"
+    }
+    ```
+  - **Código**: `404 Not Found (Tarea no encontrada)`
+  - **Ejemplo de respuesta**: 
+    ```json
+    {
+      "error": "Task not found"
+    }
+    ```
+  - **Código**: `500 Internal Server Error (Error en el servidor)`
+  - **Ejemplo de respuesta**: 
+    ```json
+    {
+      "error": "<mensaje de error>"
+    }
+    ```  
+---
 
 ### 3. Eliminar una tarea (DELETE)
 
@@ -101,7 +156,7 @@ Crea una nueva tarea con un título, descripción y estado.
 - **Método**: `DELETE`
 - **Parámetros de la URL**:
     id: ID de la tarea a actualizar.
-- **Respuesta exitosa**:
+- **Respuestas**:
   - **Código**: `200 OK`
   - **Ejemplo de respuesta**:
     ```json
@@ -109,6 +164,22 @@ Crea una nueva tarea con un título, descripción y estado.
        "Task deleted successfully"
     }
     ```
+  - **Código**: `404 Not Found`
+  - **Ejemplo de respuesta**:
+    ```json
+    {
+       "Task not found"
+    }
+    ```
+  - **Código**: `500 Internal Server Error`
+  - **Ejemplo de respuesta**:
+    ```json
+    {
+       "Error: <mensaje de error>"
+    }
+    ```
+
+    
 
 
 
