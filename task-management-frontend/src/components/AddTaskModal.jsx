@@ -30,6 +30,7 @@ const AddTaskModal = ({ open, onClose, onAddTask }) => {
     } catch (error) {
       console.error('Error submitting task:', error);
     }
+
   };
 
   return (
@@ -45,8 +46,7 @@ const AddTaskModal = ({ open, onClose, onAddTask }) => {
             <MenuItem value="In progress">In progress</MenuItem>
             <MenuItem value="Completed">Completed</MenuItem>
           </TextField>
-          <TextField label="Description" fullWidth margin="normal" multiline rows={4} value={desc} onChange={(e) => setDesc(e.target.value)} required />
-         
+          <TextField label="Description" fullWidth margin="normal" multiline rows={4} value={desc} onChange={(e) => setDesc(e.target.value)} required/>
           <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
             <Button type="submit" variant="contained" color="primary">
               Add Task

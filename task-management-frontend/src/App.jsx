@@ -11,7 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { TaskProvider } from './context/TaskContext';
 
 
-const drawerWidth = 240; 
+const drawerWidth = 200; 
 const miniDrawerWidth = 64; 
 
 const mobileDrawerWidth = 100; 
