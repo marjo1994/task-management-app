@@ -60,18 +60,17 @@ const Sidebar = ({ open, handleDrawerClose }) => {
       </DrawerHeader>
       <Divider />
       <List>
-        <ListItem button component={Link} to="/dashboard">
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          {open && <ListItemText primary="Dashboard" />}
-        </ListItem>
-
         <ListItem button component={Link} to="/tasks">
           <ListItemIcon>
             <TaskIcon />
           </ListItemIcon>
           {open && <ListItemText primary="Tasks" />}  
+        </ListItem>
+        <ListItem button component={Link} to="/dashboard">
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          {open && <ListItemText primary="Dashboard" />}
         </ListItem>
       </List>
       <Divider />

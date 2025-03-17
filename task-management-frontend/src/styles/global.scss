@@ -1,24 +1,14 @@
 #root {
-    /*max-width: 1280px;
+    //max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem;
-    text-align: center;*/
-    width: 100vw; /* Ocupa todo el ancho de la pantalla */
-    height: 100vh; /* Ocupa toda la altura de la pantalla */
-    margin: 0; /* Elimina márgenes predeterminados */
-    padding: 0; /* Elimina padding predeterminado */
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    background-color: #f5f5f5; /* Fondo gris claro */
+    //padding: 2rem;
+    text-align: center;
+   
   }
   .card {
     padding: 2em;
   }
   
-  .read-the-docs {
-    color: #888;
-  }
 
   :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -48,8 +38,8 @@
     margin: 0;
     display: flex;
     place-items: center;
-    min-width: 320px;
-    min-height: 100vh;
+    //min-width: 320px;
+    //min-height: 100vh;
   }
   
   h1 {

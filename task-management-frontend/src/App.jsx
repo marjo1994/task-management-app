@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { styled, Box, CssBaseline, AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Sidebar from './components/Sidebar';
@@ -14,6 +8,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import TaskList from './pages/TaskList';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { TaskProvider } from './context/TaskContext';
+
 
 const drawerWidth = 240; 
 const miniDrawerWidth = 64; 
@@ -43,47 +39,48 @@ const App = () => {
   const isLoginPage = location.pathname === '/login';
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      
-      {!isLoginPage && (
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-          <Toolbar>
-            <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerToggle} edge="start" sx={{ mr: 2 }} >
-              {open ? <ChevronLeftIcon /> : <MenuIcon />}  
-            </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              Task Management
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      )}
+    <TaskProvider>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        {!isLoginPage && (
+          <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+            <Toolbar>
+              <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerToggle} edge="start" sx={{ mr: 2 }} >
+                {open ? <ChevronLeftIcon /> : <MenuIcon />}  
+              </IconButton>
+              <Typography variant="h6" noWrap component="div">
+                Task Management
+              </Typography>
+            </Toolbar>
+          </AppBar>
+        )}
 
-      {!isLoginPage && <Sidebar open={open} handleDrawerClose={handleDrawerToggle}  drawerWidth={currentDrawerWidth} />}
+        {!isLoginPage && <Sidebar open={open} handleDrawerClose={handleDrawerToggle}  drawerWidth={currentDrawerWidth} />}
 
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          marginLeft: !isLoginPage ? `${currentDrawerWidth}px` : 0,
-          transition: (theme) =>
-            theme.transitions.create('margin', {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.leavingScreen,
-            }),
-        }}
-      >
-        
-        {!isLoginPage && <DrawerHeader />}
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/tasks" element={<TaskList />} />
-          <Route path="/" element={<Navigate to="/login" />} />
-        </Routes>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            marginLeft: !isLoginPage ? `${currentDrawerWidth}px` : 0,
+            transition: (theme) =>
+              theme.transitions.create('margin', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+              }),
+          }}
+        >
+          
+          {!isLoginPage && <DrawerHeader />}
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/tasks" element={<TaskList />} />
+            <Route path="/" element={<Navigate to="/login" />} />
+          </Routes>
+        </Box>
       </Box>
-    </Box>
+    </TaskProvider>
   );
 };
 
