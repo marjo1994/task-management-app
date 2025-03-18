@@ -25,7 +25,6 @@ const Login = () => {
       justifyContent: 'center',
       alignItems: 'center',
       minHeight: '100vh', 
-      backgroundColor: '#f5f5f5', 
       padding: isSmallScreen ? 2 : 0,
     }}
   >
